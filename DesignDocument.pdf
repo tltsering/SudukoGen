@@ -2,26 +2,30 @@ Program Overview
 The program uses recursion to make sure that there are no repeating numbers in a columns/row.
 
 Data Structures
- Explain how you used:
- a. the 2D array
- b. the array and/or ArrayList
-
+2D array is used in board() and puzzle() method as it creates an array/9x9 grid stores an integer from 1–9 or 0 for an empty space/cells. 
+ArrayList is used as ArrayList<Integer> in the list() method to store the numbers 1 through 9. The list was used in board() to randomly select numbers when filling each empty cell.
 
 Algorithm Design
- Explain how your program generates a solved Sudoku board.
- Describe the pattern, logic, or method you used.
+I used recursion in the build() method, to check whether the newly selected value for the cell already exists. board() picks a random number from new ArrayList created from list(), inserts it into the cell and removes it from the new list. This value gets checked by checker(), and if it already exists in the same row or column, the value gets set to zero. build() will try again with a different random value from list, as the previous value was deleted from the new list.  
 
 
 Methods
- List and explain the purpose of each method.
-The build() method, builds the actual game using recursion and the checker() method, while puzzle() makes it into a playable game. 
-Build() creates an already solved game using recursion
-Puzzle() takes the parameter and removes the amount from the cells (81 total numbers/cells - 40 = Cells that appear when you load the game). Puzzle() is also used to update/print the current game, as it is used in print()
+-build() creates an already solved game using recursion, as it fills the empty array from numbers 1-9. It calls itself back when the checker() method detects that there are repeating numbers depending on the row or column. In this way, build() fills the game and creates the solution, showing how the program checks whether player input is correct or not. 
+-puzzle() takes the parameter and removes the amount from the cells (81 total numbers/cells - 40 = Cells that appear when you load the game). Puzzle() is also used to update/print the current game, as it is used in print() method and main method.
+-checker() uses the build() method and checks each cell for the parameters inserted in build(), specifically, when each cell gets filled, checker() checks every cell to see whether there is a repeating number in the same row or column. 
+-list() creates a new ArrayList that can be used in build(), creates the values that can be used in build().
+-print() prints out puzzle(), and the updated puzzle() based on inputed values in main method. It also prints out more lines and fills the blank spaces, 0, with "x" 
+-complete() checks whether there are blank spaces, 0, left. If true, ends the game, but if false, continues the game.
+-Main Method takes player input for what number they want to try, as they input row, column, and the number separately.
+
 
 Testing Plan
  Explain how you tested your program.
- Describe at least 3 test cases or checks you used.
+ Describe at least 3 test cases or checks you used. I ran the program multiple times, checking both the Sudoku game generation and the user input. I checked whether the board is 9 x 9, and generating numbers from 1-9.
+I counted whether 40 cells were empty or not.
+I checked the [0][0], and [8][8] to see if there were numbers generating there.
+I tested whether the program printed a message to the user if they inserted the correct value, a wrong value, or a value that was already there
 
 
 Challenges and Solutions
- Describe at least one challenge you faced and how you solved it.
+I ran into a lot of issues in the board() method, so I created a separate checker() method to make it more organized, as it used to be combined into one method.
