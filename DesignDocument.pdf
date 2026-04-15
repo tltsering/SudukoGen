@@ -1,0 +1,27 @@
+Program Overview
+The program uses recursion to make sure that there are no repeating numbers in a columns/row.
+
+Data Structures
+ Explain how you used:
+ a. the 2D array
+ b. the array and/or ArrayList
+
+
+Algorithm Design
+ Explain how your program generates a solved Sudoku board.
+ Describe the pattern, logic, or method you used.
+
+
+Methods
+ List and explain the purpose of each method.
+The build() method, builds the actual game using recursion and the checker() method, while puzzle() makes it into a playable game. 
+Build() creates an already solved game using recursion
+Puzzle() takes the parameter and removes the amount from the cells (81 total numbers/cells - 40 = Cells that appear when you load the game). Puzzle() is also used to update/print the current game, as it is used in print()
+
+Testing Plan
+ Explain how you tested your program.
+ Describe at least 3 test cases or checks you used.
+
+
+Challenges and Solutions
+ Describe at least one challenge you faced and how you solved it.
