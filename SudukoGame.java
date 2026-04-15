@@ -1,1 +1,148 @@
+import java.util.ArrayList;
+import java.util.Scanner;
 
+public class SudukoGame {
+    public static Scanner sc = new Scanner(System.in); 
+    static int[][] board = new int[9][9];
+    static int[][] puzzle = new int[9][9];
+
+    public static void main(String[] args) {
+        board();
+        puzzle(40);
+
+        while (!complete()) {
+            print();
+            System.out.println("Enter row from 1-9: ");
+            int r = sc.nextInt() - 1; 
+
+            System.out.println("Enter column from 1-9: ");
+            int c = sc.nextInt() - 1;  
+
+            System.out.println("Enter number (1-9): ");
+            int n = sc.nextInt();
+
+            if (puzzle[r][c] != 0) {
+                System.out.println("Cell already filled!");
+                continue;
+            }
+
+            if (board[r][c] == n) {
+                puzzle[r][c] = n;
+                System.out.println("CORRECT");
+            } else {
+                System.out.println("WRONG");
+            }
+        }
+        System.out.println("HOORAY!");
+    }
+
+    public static boolean board() {
+        for (int row = 0; row < 9; row++) {
+            for (int col = 0; col < 9; col++) {
+                if (board[row][col] == 0) {
+                    ArrayList<Integer> numbers = list();
+
+                    while (!numbers.isEmpty()) {
+                        int index = (int)(Math.random() * numbers.size());
+                        int num = numbers.remove(index);
+                        if (checker(row, col, num)) {
+                            board[row][col] = num;
+
+                            if (board()) {
+                                return true;
+                            }
+                            board[row][col] = 0;
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    public static ArrayList<Integer> list() {
+        ArrayList<Integer> list = new ArrayList<>();
+
+        for (int i = 1; i <= 9; i++) {
+            list.add(i);
+        }
+
+        return list;
+    }
+
+    public static boolean checker(int r, int c, int n) {
+        for (int i = 0; i < 9; i++) {
+            if (board[r][i] == n) return false;
+        }
+
+        for (int i = 0; i < 9; i++) {
+            if (board[i][c] == n) return false;
+        }
+
+        int startRow = r - r % 3;
+        int startCol = c - c % 3;
+
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[startRow + i][startCol + j] == n){
+                    return false;
+                } 
+            }
+        }
+
+        return true;
+    }
+
+    public static void puzzle(int a) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                puzzle[i][j] = board[i][j];
+            }
+        }
+        int count = a;
+        while (count > 0) {
+            int r = (int)(Math.random() * 9);
+            int c = (int)(Math.random() * 9);
+
+            if (puzzle[r][c] != 0) {
+                puzzle[r][c] = 0;
+                count--;
+            }
+        }
+    }
+    
+    public static void print() {
+        System.out.println("Suduko Puzzle:\n");
+        for (int i = 0; i < 9; i++) {
+            if (i % 3 == 0) {
+                System.out.println("-------------------------");
+            }
+            for (int j = 0; j < 9; j++) {
+
+                if (j % 3 == 0) {
+                    System.out.print("| ");
+                }
+
+                if (puzzle[i][j] == 0) {
+                    System.out.print("x ");
+                } else {
+                    System.out.print(puzzle[i][j] + " ");
+                }
+            }
+            System.out.println("|");
+        }
+        System.out.println("-------------------------");
+    }
+
+    public static boolean complete() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (puzzle[i][j] == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
