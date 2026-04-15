@@ -1,4 +1,5 @@
 Project title: Suduko Generator
+
 Student name: Tenzin Tsering
 Short description of the project: A generated suduko game using java, made by Tenzin Tsering
 How to run the program: Type in row, then column, then the number you want to insert.
